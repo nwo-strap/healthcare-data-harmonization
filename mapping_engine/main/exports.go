@@ -10,7 +10,6 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-// Export functions for use by C code
 package main
 
 // #include <stdlib.h>
@@ -28,6 +27,8 @@ import (
 	jsonutil "github.com/GoogleCloudPlatform/healthcare-data-harmonization/mapping_engine/util/jsonutil" /* copybara-comment: jsonutil */
 )
 
+// RunMapping converts JSON string of one structure to another, based on the
+// configuration file dhConfigFile. It is an export function to use in C.
 //export RunMapping
 func RunMapping(input string, dhConfigFile string) *C.char {
 	dhConfig := &dhpb.DataHarmonizationConfig{}
