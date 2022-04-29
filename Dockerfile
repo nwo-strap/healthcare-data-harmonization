@@ -25,5 +25,5 @@ RUN chmod +x ./build_exports.sh && \
 
 # Copy shared library to a new base image.
 FROM openjdk:18-slim-bullseye
-COPY --from=java-build-env /opt/gw/mapping_engine/main/libgoogle_whistle.so /usr/lib
+COPY --from=java-build-env /opt/gw/mapping_engine/main/libgoogle_whistle.so /usr/local/lib
 WORKDIR /home

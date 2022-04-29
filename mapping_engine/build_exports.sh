@@ -56,8 +56,10 @@ cd main
 
 if [[ "$OSTYPE" == "linux-gnu"* ]]; then
   go build -o libgoogle_whistle.so -buildmode=c-shared main.go exports.go
+  cp libgoogle_whistle.so /usr/local/lib
 elif [[ "$OSTYPE" == "darwin"* ]]; then
   go build -o libgoogle_whistle.dylib -buildmode=c-shared main.go exports.go
+  cp libgoogle_whistle.dylib /usr/local/lib
 else
   echo "Error: $OSTYPE is not supported. You can compile it on Linux or MacOS system."
   exit 1
