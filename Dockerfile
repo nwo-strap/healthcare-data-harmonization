@@ -1,15 +1,15 @@
 FROM openjdk:18-slim-bullseye AS java-build-env
 
-RUN apt-get update && \
+RUN set -eux && \
+    apt-get update && \
     apt-get install -y --no-install-recommends \
         curl \
         g++ \
         git \
         unzip \
-        wget
-
-# Install Go and protoc
-RUN wget https://golang.org/dl/go1.18.1.linux-amd64.tar.gz && \
+        wget && \
+    # Install Go and protoc
+    wget https://golang.org/dl/go1.18.1.linux-amd64.tar.gz && \
     tar -C /usr/local -xzf go1.18.1.linux-amd64.tar.gz && \
     wget https://github.com/protocolbuffers/protobuf/releases/download/v3.20.1/protoc-3.20.1-linux-x86_64.zip && \
     mkdir /usr/local/protoc && \
