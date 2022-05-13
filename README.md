@@ -47,7 +47,7 @@ to build the mapping engine and mapping language packages:**
 
 Make sure you have installed and added to PATH
 
-1.  [Golang](https://golang.org/dl/) (>= 1.13)
+1.  [Golang](https://golang.org/dl/) (>= 1.17)
 1.  [Java JDK](https://openjdk.java.net/install/) (>= 8)
 1.  [Protobuf Compiler `protoc`](https://github.com/protocolbuffers/protobuf/releases/tag/v3.11.4)
     (>= 3.11.4)

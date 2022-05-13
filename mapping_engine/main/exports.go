@@ -12,12 +12,10 @@
 
 package main
 
-// #include <stdlib.h>
 import "C"
 import (
 	"context"
 	"log"
-	"unsafe"
 
 	"github.com/GoogleCloudPlatform/healthcare-data-harmonization/mapping_engine/transform" /* copybara-comment: transform */
 	"google.golang.org/protobuf/encoding/prototext"                                         /* copybara-comment: prototext */
@@ -60,7 +58,6 @@ func RunMapping(input string, dhConfigFile string) *C.char {
 
 	resstr := jsonutil.MarshalJSON(res)
 	cstr := C.CString(resstr)
-	defer C.free(unsafe.Pointer(cstr))
 
 	return cstr
 }
