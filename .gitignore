@@ -1,5 +1,6 @@
 
 mapping_engine/main/main
+mapping_engine/main/libgoogle_whistle.*
 mapping_language/parser/whistle_visitor.go
 mapping_language/parser/whistle_parser.go
 mapping_language/parser/whistle_listener.go
