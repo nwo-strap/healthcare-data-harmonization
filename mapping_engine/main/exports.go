@@ -11,7 +11,9 @@
 // limitations under the License.
 
 package main
-
+/*
+#include "mapping.h"
+*/
 import "C"
 import (
 	"context"
@@ -28,7 +30,7 @@ import (
 // RunMapping converts JSON string of one structure to another, based on the
 // configuration file dhConfigFile. It is an export function to use in C.
 //export RunMapping
-func RunMapping(input string, dhConfigFile string) *C.char {
+func RunMapping(input string, dhConfigFile string) *C.MappingResult {
 	dhConfig := &dhpb.DataHarmonizationConfig{}
 
 	n := fileutil.MustRead(dhConfigFile, "data harmonization config")
@@ -41,23 +43,33 @@ func RunMapping(input string, dhConfigFile string) *C.char {
 	var tr transform.Transformer
 	var err error
 
+	result := (*C.MappingResult)(C.malloc(C.sizeof_MappingResult))
+    result.result = nil
+    result.error = nil
+
 	if tr, err = transform.NewTransformer(context.Background(), dhConfig, tconfig); err != nil {
-		log.Fatalf("Go: Failed to load mapping config: %v", err)
+		// log.Fatalf("Go: Failed to load mapping config: %v", err)
+		result.error = C.CString(err.Error())
+		return result
 	}
 
 	i := []byte(input)
 	ji, err := tr.ParseJSON(i)
 	if err != nil {
-		log.Fatalf("Go: Failed to parse input JSON")
+		// log.Fatalf("Go: Failed to parse input JSON")
+		result.error = C.CString(err.Error())
+		return result
 	}
 
 	res, err := tr.Transform(ji)
 	if err != nil {
-		log.Fatalf("Go: Mapping failed")
+		// log.Fatalf("Go: Mapping failed!!!")
+		result.error = C.CString(err.Error())
+		return result
 	}
 
 	resstr := jsonutil.MarshalJSON(res)
-	cstr := C.CString(resstr)
+	result.result = C.CString(resstr)
 
-	return cstr
+	return result
 }
